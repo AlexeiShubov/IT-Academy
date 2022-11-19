@@ -4034,7 +4034,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 105.5
+  m_fontSize: 105.4
   m_fontSizeBase: 36.12
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4947,14 +4947,14 @@ GameObject:
   - component: {fileID: 7498186202902167298}
   - component: {fileID: 7498186202902167299}
   - component: {fileID: 7498186202902167308}
-  - component: {fileID: 4453024625765950277}
+  - component: {fileID: 1418850022655002801}
   m_Layer: 5
   m_Name: -= Canvas Quest 1=-
   m_TagString: Quest1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7498186202902167309
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5041,7 +5041,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4453024625765950277
+--- !u!114 &1418850022655002801
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5050,9 +5050,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7498186202902167310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 824c5c5acc57bf2439b55a528c388531, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e3d298d2d23d854186e13002ec9ab67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  QuestName: 1
 --- !u!1 &7754928377378250754
 GameObject:
   m_ObjectHideFlags: 0

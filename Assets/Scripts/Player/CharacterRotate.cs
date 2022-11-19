@@ -27,18 +27,8 @@ public class CharacterRotate : MonoBehaviour
         _xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, -30f, 80f);
 
-        transform.localPosition = new Vector3(0, 1.75f, 0);
+        transform.localPosition = new Vector3(0, 1.7f, 0);
         transform.localRotation = Quaternion.Euler(_xRotation, 0, 0f);
         _transformForRotate.Rotate(Vector3.up * mouseX);
-    }
-
-    private void OnEnable()
-    {
-        GameEvents.OnCanRotate += (value) => _canRotate = value;
-    }
-    
-    private void OnDisable()
-    {
-        GameEvents.OnCanRotate -= (value) => _canRotate = value;
     }
 }
