@@ -2,7 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class UIController : MonoBehaviour, IQuestControlleble
+public class TabletController : MonoBehaviour, IQuestControlleble
 {
     [SerializeField] private Animator _miniTablet;
     [SerializeField] private Animator _tablet;

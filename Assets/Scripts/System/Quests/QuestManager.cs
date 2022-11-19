@@ -2,14 +2,16 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Video;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource), typeof(VideoPlayer))]
 public class QuestManager : MonoBehaviour
 {
     [SerializeField] private List<Quest> _questList;
     [Space] [SerializeField] private Media _media;
-    [SerializeField] private UIController _uiController;
+    [SerializeField] private TabletController _uiController;
     [SerializeField] private Transform _parentForCanvasQuests;
+    [SerializeField] RawImage _renderTextureForVideoClip;
 
     private IQuestControlleble _videoManager;
     private IQuestControlleble _audioManager;
@@ -26,7 +28,7 @@ public class QuestManager : MonoBehaviour
         
         _videoPlayer.targetTexture = Resources.Load<RenderTexture>("Render Texture");
         
-        _videoManager = new VideoManager(_media.VideosList, _videoPlayer);
+        _videoManager = new VideoManager(_media.VideosList, _videoPlayer, _renderTextureForVideoClip);
         _audioManager = new AudioController(_media.SoundsList, _audioSource);
 
         _iQuestControllebles = new List<IQuestControlleble>()
