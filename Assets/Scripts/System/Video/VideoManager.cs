@@ -1,27 +1,44 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Cysharp.Threading.Tasks;
 using UnityEngine.Video;
 
-public class VideoManager : MonoBehaviour
+public class VideoManager : IQuestControlleble
 {
-    [Space] public List<Video> videosList;
+    private readonly List<Video> _videosList;
+    private readonly VideoPlayer _videoPlayer;
 
-    [SerializeField] private VideoPlayer _videoPlayer;
-
-    public IEnumerator PlayVideo(string videoName)
+    public VideoManager(List<Video> videosList, VideoPlayer videoPlayer)
     {
-        _videoPlayer.clip = videosList.Find(x=> x.Name == videoName).VideoClip;
+        _videosList = videosList;
+        _videoPlayer = videoPlayer;
+    }
 
+    public void ReadyQuest(string questName)
+    {
+        LoadVideo(questName);
+    }
+
+    public async UniTask StartQuest()
+    {
         if (_videoPlayer.clip != null)
         {
             _videoPlayer.gameObject.SetActive(true);
             _videoPlayer.Play();
 
-            yield return new WaitForSeconds((float)_videoPlayer.clip.length / _videoPlayer.playbackSpeed);
-
-            _videoPlayer.clip = null;
-            _videoPlayer.gameObject.SetActive(false);
+            await UniTask.Delay(TimeSpan.FromSeconds(_videoPlayer.clip.length / _videoPlayer.playbackSpeed));
         }
+    }
+
+    public UniTaskVoid ExitQuest()
+    {
+        _videoPlayer.clip = null;
+
+        return new UniTaskVoid();
+    }
+    
+    private void LoadVideo(string nameQuest)
+    {
+        _videoPlayer.clip = _videosList.Find(x=> x.Name == nameQuest).VideoClip;
     }
 }

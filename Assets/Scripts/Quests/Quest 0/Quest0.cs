@@ -2,20 +2,20 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-public class Quest0 : Quest, IReadyble, IStarteble, IEnding, IRestarteble
+public class Quest0 : Quest, IRestarteble
 {
+    [SerializeField] private GameObject _mainPanel;
+    [SerializeField] private GameObject _victoryPanel;
+    [SerializeField] private GameObject _losePanel;
     [SerializeField] private Slot[] _slots;
     [SerializeField] private Item[] _items;
-    [SerializeField] private GameObject _victoryPanel;
     [SerializeField] private TextMeshProUGUI _timerText;
-    [SerializeField] private GameObject _losePanel;
 
     private int _timer = 40;
     private bool _questIsFinish;
 
     private void Awake()
     {
-        StartCoroutine(TimeCounter());
         SetID();
         ShuflePazle();
     }
@@ -26,6 +26,28 @@ public class Quest0 : Quest, IReadyble, IStarteble, IEnding, IRestarteble
         {
             CheckForWin();
         }
+    }
+    
+    public void QuestRestart()
+    {
+        _questIsFinish = false;
+        _losePanel.gameObject.SetActive(false);
+        _timer = 40;
+
+        StartCoroutine(TimeCounter());
+        ShuflePazle();
+    }
+
+    public override void StartQuest()
+    {
+        _mainPanel.gameObject.SetActive(true);
+        
+        StartCoroutine(TimeCounter());
+    }
+
+    public override void ExitQuest()
+    {
+        _mainPanel.gameObject.SetActive(false);
     }
 
     private void SetID()
@@ -69,7 +91,8 @@ public class Quest0 : Quest, IReadyble, IStarteble, IEnding, IRestarteble
         {
             _questIsFinish = true;
             _victoryPanel.gameObject.SetActive(true);
-            GameEvents.OnQuestIsFinish?.Invoke();
+            _timerText.gameObject.SetActive(false);
+            GameEvents.OnQuestFinish?.Invoke();
             
             return;
         }
@@ -97,29 +120,8 @@ public class Quest0 : Quest, IReadyble, IStarteble, IEnding, IRestarteble
         }
     }
 
-
-    public void QuestReady()
+    private void OnDisable()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void QuestStart()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void QuestEnd()
-    {
-        throw new System.NotImplementedException();
-    }
-    
-    public void QuestRestart()
-    {
-        _questIsFinish = false;
-        _losePanel.gameObject.SetActive(false);
-        _timer = 40;
-
-        StartCoroutine(TimeCounter());
-        ShuflePazle();
+        Destroy(gameObject);
     }
 }

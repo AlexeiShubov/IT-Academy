@@ -8,11 +8,6 @@ public class CharacterMove : MonoBehaviour
     private Vector3 _directionMove;
     private bool _canMoving = true;
 
-    private void Awake()
-    {
-        GameEvents.OnCanMoving += (value) => _canMoving = value;
-    }
-
     private void Update()
     {
         if (!_canMoving) return;
@@ -35,12 +30,8 @@ public class CharacterMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameEvents.OnQuestIsReady?.Invoke(other.tag);
-        Destroy(other);
-    }
-
-    private void OnDisable()
-    {
-        GameEvents.OnCanMoving -= (value) => _canMoving = value;
+        if (!other.TryGetComponent(out TriggerQuest triggerQuest)) return;
+        GameEvents.OnQuestReady?.Invoke(triggerQuest.Name);
+        other.GetComponent<Collider>().enabled = false;
     }
 }

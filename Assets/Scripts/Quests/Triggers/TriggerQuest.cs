@@ -2,11 +2,7 @@ using UnityEngine;
 
 public class TriggerQuest : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetType() == typeof(CharacterMove))
-        {
-            Debug.Log("Player");
-        }
-    }
+    [SerializeField] Quest _quest;
+
+    public string Name => _quest.QuestName.ToString();
 }
